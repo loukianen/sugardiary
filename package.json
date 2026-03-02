@@ -1,0 +1,22 @@
+{
+  "name": "sugardiary",
+  "version": "1.0.0",
+  "description": "sugardiary creator",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/loukianen/sugardiary.git"
+  },
+  "keywords": [
+    "diary"
+  ],
+  "author": "Lukyanenok",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loukianen/sugardiary/issues"
+  },
+  "homepage": "https://github.com/loukianen/sugardiary#readme"
+}
