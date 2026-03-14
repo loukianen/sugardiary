@@ -57,7 +57,11 @@ function ChooseTwoFromAmount(amount) {
   for (let i = startIndex; i <= amount; i += 2) {
     secondSet.push(i);
   }
-  const second = secondSet[Math.round(Math.random() * (secondSet.length - 1))];
+  let secondIndex = Math.floor(Math.random() * secondSet.length);
+  if (secondIndex === secondSet.length) {
+    secondIndex = secondSet.length - 1;
+  }
+  const second = secondSet[secondIndex];
   return [first, second];
 }
 
