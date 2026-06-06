@@ -1,18 +1,28 @@
-const fs = require('fs');
+import fs from 'fs';
 
 // A constant for the number of milliseconds in a day
 const MILLISECONDS_PER_DAY = 60*60*24*1000;
 const DAYS_IN_WORK_CYCLE = 4;
+export const DAIRY_TYPES = [
+  'twoperday22work', // two measurements per day with a 2/2 work schedule
+  'twoperday', // two measurements per day without limits
+  'fiveperweek22work', // five measurements per week with a 2/2 work schedule
+];
+
 
 /**
  * Reads the file and parses the input data.
  * @returns {Object} An object with the start date and the length of the diary.
  */
 function parseInput() {
-  const content = fs.readFileSync('./input.txt', 'utf-8').split('\n');
-  const startDate = new Date(content[0].trim());
-  const diaryLength = Number(content[1].trim());
-  return { startDate, diaryLength };
+  try {
+    const content = fs.readFileSync('./input.json', 'utf-8');
+    const params = JSON.parse(content);
+    params.startDate = new Date(params.startDate);
+    return params;
+  } catch (e) {
+    return {};
+  }
 }
 
 const { startDate, diaryLength } = parseInput();
@@ -73,3 +83,5 @@ const tableHeader =
 const text = tableHeader + dairy.map((el) => el.join('|')).join('\n');
 
 fs.writeFileSync('./output.txt', text, 'utf-8');
+
+export { parseInput };
