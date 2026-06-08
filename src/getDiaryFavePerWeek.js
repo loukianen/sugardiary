@@ -1,17 +1,11 @@
 import { chooseOneFromAmount, chooseTwoFromAmount, getEmptyRecord, getTomorrowDate } from "./utils.js";
-import {
-  AVAILABLE_MEASUREMENTS_IN_WORK_DAY,
-  DAYS_IN_WEEK,
-  DAYS_IN_WORK_CYCLE,
-  NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY,
-  NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY
-} from "./consts.js";
+import { DAYS_IN_WEEK, NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY } from "./consts.js";
 
 export default function ({ startDate, diaryLength } ) {
   let curDate = startDate;
   const dairy = [];
   let dayOfWeek = startDate.getDay() === 0 ? DAYS_IN_WEEK : startDate.getDay();
-  let daysWithoutMeasuring = chooseTwoFromAmount();
+  let daysWithoutMeasuring = chooseTwoFromAmount(DAYS_IN_WEEK);
 
   for (let i = 0; i < diaryLength; i += 1) {
     // record = [date, before breakfast, after breakfast, b.lunch, a.lunch, b.dinner, a.dinner]
@@ -23,15 +17,8 @@ export default function ({ startDate, diaryLength } ) {
     
   for (let i = 0; i < dairy.length; i += 1) {
     if (!daysWithoutMeasuring.includes(dayOfWeek)) {
-      const dayInWorkCycle = i % DAYS_IN_WORK_CYCLE;
-      let selectedIndex;
-      if (dayInWorkCycle === 0) { // day work day use before breckfast or dinner and after dinner only
-        selectedIndex = chooseOneFromAmount(AVAILABLE_MEASUREMENTS_IN_WORK_DAY);
-      } else if (dayInWorkCycle === 1) { // night work day don't use dinner
-        selectedIndex = chooseOneFromAmount(NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY);
-      } else { // other days without limitation
-        selectedIndex = chooseOneFromAmount(NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY);
-      }
+      // day without limitation
+      const selectedIndex = chooseOneFromAmount(NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY);
       dairy[i][selectedIndex] = '.';
     }
 

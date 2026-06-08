@@ -1,5 +1,5 @@
 import { chooseTwoFromAmount, getEmptyRecord, getTomorrowDate } from "./utils.js";
-import { DAYS_IN_WORK_CYCLE } from "./consts.js";
+import { DAYS_IN_WORK_CYCLE, NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY, NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY } from "./consts.js";
 
 export default function ({ startDate, diaryLength } ) {
   let curDate = startDate;
@@ -21,9 +21,9 @@ export default function ({ startDate, diaryLength } ) {
       el[firstIndex] = '.';
       el[6] = '.';
     } else if (dayInWorkCycle === 1) { // night work day don't use dinner
-      selectedIndexes = chooseTwoFromAmount(4);
+      selectedIndexes = chooseTwoFromAmount(NUMBER_OF_MEASUREMENTS_IN_NIGHT_WORK_DAY);
     } else { // other days without limitation
-      selectedIndexes = chooseTwoFromAmount(6);
+      selectedIndexes = chooseTwoFromAmount(NUMBER_OF_MEASUREMENTS_IN_OTHER_DAY);
     }
     selectedIndexes.forEach((index) => {
       el[index] = '.';
